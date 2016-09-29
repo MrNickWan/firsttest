@@ -1,1 +1,146 @@
 this is first test
+updated 
+
+package algohw3;
+
+/**
+ *
+ * @author Nicholas
+ */
+public class AlgoHW3 {
+    public static class MyMergeSort {
+     
+    private int[] array;
+    private int[] tempMergArr;
+    private int length;
+ 
+    
+     
+    public void sort(int inputArr[]) {
+        this.array = inputArr;
+        this.length = inputArr.length;
+        this.tempMergArr = new int[length];
+        doMergeSort(0, length - 1);
+    }
+ 
+    private void doMergeSort(int lowerIndex, int higherIndex) {
+         
+        if (lowerIndex < higherIndex) {
+            int middle = lowerIndex + (higherIndex - lowerIndex) / 2;
+            // Below step sorts the left side of the array
+            doMergeSort(lowerIndex, middle);
+            // Below step sorts the right side of the array
+            doMergeSort(middle + 1, higherIndex);
+            // Now merge both sides
+            mergeParts(lowerIndex, middle, higherIndex);
+        }
+    }
+ 
+    private void mergeParts(int lowerIndex, int middle, int higherIndex) {
+ 
+        for (int i = lowerIndex; i <= higherIndex; i++) {
+            tempMergArr[i] = array[i];
+        }
+        int i = lowerIndex;
+        int j = middle + 1;
+        int k = lowerIndex;
+        while (i <= middle && j <= higherIndex) {
+            if (tempMergArr[i] <= tempMergArr[j]) {
+                array[k] = tempMergArr[i];
+                i++;
+            } else {
+                array[k] = tempMergArr[j];
+                j++;
+            }
+            k++;
+        }
+        while (i <= middle) {
+            array[k] = tempMergArr[i];
+            k++;
+            i++;
+        }
+ 
+    }
+}
+
+    
+
+    public static int binarySearch(int[] a, int x) { 
+      return binarySearch(a, x, 0, a.length - 1);
+   }
+  
+   // need extra low and high parameters
+   private static int binarySearch(int[ ] a, int x,
+         int low, int high) {
+      if (low > high) return -1; 
+      int mid = (low + high)/2;
+      if (a[mid] == x) {
+          
+          return mid;
+      }
+      else if (a[mid] < x)
+         return binarySearch(a, x, mid+1, high);
+      else // last possibility: a[mid] > x
+         return binarySearch(a, x, low, mid-1);
+   }
+            
+        
+    
+    
+    
+    
+    
+    
+    public static void main(String a[]){
+         
+        int[] main={9,6,2,8,9,6,7,4,10};
+        int[] input={9,2,5,7,8,5,6,6,9,9,10,6,6,3};
+        
+        
+        MyMergeSort msort = new MyMergeSort();
+        
+        msort.sort(input);
+        msort.sort(main);
+        for(int i:input){
+            System.out.print(i);
+            System.out.print(" ");
+        }
+       
+        System.out.println();
+        for(int i:main){
+            System.out.print(i);
+            System.out.print(" ");
+        }
+       
+        System.out.println();      
+      
+        
+        
+        int[] answer=new int[main.length];
+        for(int p=0;p<main.length;p++){
+        
+            if(binarySearch(input,main[p])!=-1){
+                
+                System.out.print(main[p]);
+                     
+        }
+                        
+        
+
+      
+}
+        
+        int[] result = new int[input.length];
+        int k =0;
+        for(int i=0;i<input.length-1;i++){
+            if(input[i]!=input[i+1]){
+                result[k++]=input[i];
+            }
+            
+        }
+        result[k]=input[input.length-1];
+        for(int n: result){
+            System.out.println(n);
+        }
+    }
+}
